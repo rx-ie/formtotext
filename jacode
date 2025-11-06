@@ -1,4 +1,5 @@
-javascript
+text
+myScript.gs
 
 function onFormSubmit(e) {
   // Get form response

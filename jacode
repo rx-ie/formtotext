@@ -1,5 +1,5 @@
-text
-myScript.gs
+javascript
+#!/usr/bin/env node
 
 function onFormSubmit(e) {
   // Get form response

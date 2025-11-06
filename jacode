@@ -1,0 +1,43 @@
+javascript
+
+function onFormSubmit(e) {
+  // Get form response
+  var formResponse = e.response;
+  
+  // Get all item responses
+  var itemResponses = formResponse.getItemResponses();
+  
+  // Extract values in order
+  var fileName = itemResponses[0].getResponse();    // First field: Filename
+  var title = itemResponses[1].getResponse();       // Second field: Title
+  var name = itemResponses[2].getResponse();        // Third field: Name
+  var day = itemResponses[3].getResponse();         // Fourth field: Day
+  var date = itemResponses[4].getResponse();        // Fifth field: Date
+  var description = itemResponses[5].getResponse(); // Sixth field: Description
+  
+  // Create the filled template
+  var filledTemplate = '${title} - ${name} - ${date}
+
+${day}
+
+${title}
+
+${description}`;
+  
+  // Always add .txt extension
+  fileName = fileName + '.txt';
+  
+  // Create the text file
+  var blob = Utilities.newBlob(filledTemplate, 'text/plain', fileName);
+  
+  // Save to Google Drive in specific folder
+  try {
+    var folder = DriveApp.getFolderById('FOLDERID'); // Replace with your folder ID
+    var file = folder.createFile(blob);
+    console.log(`File created: ${fileName} in folder`);
+  } catch (error) {
+    // If folder access fails, save to root
+    var file = DriveApp.createFile(blob);
+    console.log(`File created: ${fileName} in root (folder error: ${error})`);
+  }
+}
